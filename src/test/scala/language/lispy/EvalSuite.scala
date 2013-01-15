@@ -225,7 +225,7 @@ class EvalSuite extends FlatSpec with BeforeAndAfter {
         assert(evaluate("(cond ((< 7 6) 9) ((> 9 9) 10))") === LIST(Nil))
     }
 
-    ignore should "return a list of symbols containing current env. keys" in {
+    "*globals*" should "return a list of symbols containing current env. keys" in {
         val a = evaluate("(*globals*)").asInstanceOf[LIST]
         assert(a.value.contains(SYMBOL("cond")))
     }

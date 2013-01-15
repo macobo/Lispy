@@ -89,12 +89,18 @@ object Main {
                 case _ => throw TypeError("Expected (substr str from to), got args: " + args)
             }
         })
-        register(env, "print", oneArgFunction[Expression](expr => {
-            print(expr); LIST(Nil)
-        }))
-        register(env, "println", oneArgFunction[Expression](expr => {
-            println(expr); LIST(Nil)
-        }))
+        register(env, "print", Function { (args, env) =>
+            evalEach(args, env) match {
+                case expr :: Nil => { print(expr); LIST(Nil) }
+                case args => { print(args); LIST(Nil) }
+            }
+        })
+        register(env, "println", Function { (args, env) =>
+            evalEach(args, env) match {
+                case expr :: Nil => { println(expr); LIST(Nil) }
+                case args => { println(args); LIST(Nil) }
+            }
+        })
         register(env, "eval", oneArgFunction((s: STRING) =>
             parse(s.value)(program) map { _.eval(env) } last))
         register(env, "parse", oneArgFunction((s: STRING) =>
@@ -112,7 +118,7 @@ object Main {
         register(env, "quit", exit)
         register(env, "exit", exit)
         evaluate(getClass.getResource("core.scm"), env)
-        //register(env, "*globals*", Function { (args, env) => LIST(env.keys) })
+        register(env, "*globals*", Function { (args, env) => LIST(env.keys) })
     }
 
     def repl =
