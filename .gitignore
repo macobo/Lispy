@@ -3,6 +3,7 @@
 
 # sbt specific
 dist/*
+bin/*
 target/
 lib_managed/
 src_managed/
