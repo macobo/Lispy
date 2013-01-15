@@ -57,7 +57,7 @@ object Main {
         register(env, "or", twoArgFunction[BOOLEAN](_ || _))
         register(env, "not", oneArgFunction[BOOLEAN](!_))
 
-        register(env, "list?", oneArgFunction[Expression](x => x.isInstanceOf[LIST]))
+        register(env, "sametype?", twoArgFunction[Expression](_.getClass() == _.getClass()))
         register(env, "null?", oneArgFunction[LIST](x => x.value.isEmpty))
         register(env, "length", Function { (args, env) =>
             evalEach(args, env) match {

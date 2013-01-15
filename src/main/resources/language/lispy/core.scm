@@ -1,3 +1,5 @@
+(define list? (lambda (x) (sametype? x '())))
+
 ;;;;;;;;;;;;;;;;;;;; List functions ;;;;;;;;;;;;;;;;;;;;;
 
 (define car head)

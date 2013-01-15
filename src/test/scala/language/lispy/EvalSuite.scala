@@ -56,7 +56,7 @@ class EvalSuite extends FlatSpec with BeforeAndAfter {
         evaluate("(define a '(1 2))")
     }
 
-    it should "fail if no of arguments != 2" in {
+    it should "fail if no of arguments is not 2" in {
         intercept[SyntaxError] { evaluate("(define)") }
         intercept[SyntaxError] { evaluate("(define a)") }
         intercept[SyntaxError] { evaluate("(define a 3 4)") }
@@ -228,5 +228,10 @@ class EvalSuite extends FlatSpec with BeforeAndAfter {
     "*globals*" should "return a list of symbols containing current env. keys" in {
         val a = evaluate("(*globals*)").asInstanceOf[LIST]
         assert(a.value.contains(SYMBOL("cond")))
+    }
+
+    "type functions" should "work" in {
+        assert(evaluate("(list? '(1 2 3))") === BOOLEAN(true))
+        assert(evaluate("(list? 3)") === BOOLEAN(false))
     }
 }

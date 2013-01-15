@@ -55,7 +55,7 @@ case class Env(parent: Enviroment) extends Enviroment {
     def asString(level: Int) =
         "\nLevel " + level + "\n\t" + values.mkString("\n\t") + "\n--VVV--" + parent.asString(level + 1)
 
-    def keys = values.keys.map { SYMBOL(_) }.toList
+    def keys = values.keys.toList.sorted.map { SYMBOL(_) }
 }
 
 object NilEnv extends Enviroment {
